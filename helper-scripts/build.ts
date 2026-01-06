@@ -28,12 +28,11 @@ lines.forEach((line) => {
 
     output += `// ==== ${fileName} ====\n`;
     output += utilFileContent + "\n\n";
-    console.log("Including " + fileName)
+    console.log("Including " + fileName);
   } else {
     output += line + "\n";
   }
 });
 
-fs.writeFileSync("./output.js", output);
+fs.writeFileSync("../output.js", output);
 console.log("Build complete");
-

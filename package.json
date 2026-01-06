@@ -1,18 +1,19 @@
 {
-  "name": "app-lab-build",
-  "version": "1.0.1",
+  "name": "ml-cancer-project",
+  "version": "1.0.0",
   "description": "Gives a build functionality to code.org's app lab.",
   "license": "MIT",
-  "author": "nuclearfusion564",
+  "author": "Felix Ortega",
   "type": "module",
   "main": "build.ts",
   "scripts": {
     "build": "node build.ts",
     "import-csv": "node importCSV.ts",
-    "test": "node build.ts && node output.js"
+    "test": "node helper-scripts/build.ts && node output.js"
   },
   "devDependencies": {
-    "@types/node": "^25.0.2"
+    "@types/node": "^25.0.2",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "csv-parser": "^3.2.0"

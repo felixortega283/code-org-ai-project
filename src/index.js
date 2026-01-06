@@ -3,15 +3,15 @@
 // @include machine-learning.js
 // @include helpers.js
 
-function shuffle(dataSet){
+function shuffle(dataSet) {
   var currentIndex = 0;
   var randomizedDataset = [];
 
-  while (currentIndex != 0){
+  while (currentIndex != 0) {
     var randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    randomizedDatasetDataSet[randomIndex] = dataSet[currentIndex];
+    randomizedDataset[randomIndex] = dataSet[currentIndex];
   }
 
   return randomizedDataset;
@@ -31,7 +31,7 @@ function main() {
   var trainingCount = Math.max(1, Math.round(data.length * trainingFraction));
   var trainingData = shuffle(data.slice(0, trainingCount));
   var testData = data.slice(trainingCount);
-  
+
   console.log(testData);
 
   console.log("Creating inputs");
@@ -76,13 +76,16 @@ function main() {
   }
 
   //calculate accuracy
-  console.log("Calculating accuracy...")
+  console.log("Calculating accuracy...");
   var accuracySum = 0;
 
-  for (var accuracyIndex = 0; accuracyIndex < accuracy.length; accuracyIndex++) {
+  for (
+    var accuracyIndex = 0;
+    accuracyIndex < accuracy.length;
+    accuracyIndex++
+  ) {
     accuracySum += accuracy[accuracyIndex];
   }
-
 
   var finalAccuracy = Math.round((accuracySum / accuracy.length) * 100);
   console.log("Final accuracy is " + finalAccuracy + "%!!!");

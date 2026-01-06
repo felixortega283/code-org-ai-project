@@ -1,6 +1,6 @@
 import csv from "csv-parser";
 import fs from "fs";
-import { getCSVLocation, getFileName } from "./modules/userPrompts.ts";
+import { getCSVLocation, getFileName } from "../modules/userPrompts.ts";
 
 type newRow = { [key: string]: any };
 
@@ -30,10 +30,10 @@ async function main() {
 
   let output = "";
 
-  output += `var data = [`
+  output += `var data = [`;
 
   importedData.forEach((element) => {
-    output += ',\n   {'
+    output += ",\n   {";
 
     const elementKeys = Object.keys(element);
 
@@ -44,13 +44,14 @@ async function main() {
       }
       output += `\n     ${elementKeys[i]}: '${element[elementKeys[i]]}',`;
 
-      if (i === elementKeys.length - 1){ // To make sure that it's the last item
-        output += "\n   }"
+      if (i === elementKeys.length - 1) {
+        // To make sure that it's the last item
+        output += "\n   }";
       }
     }
   });
 
-  output += "\n];"
+  output += "\n];";
 
   fs.writeFileSync(newFileLocation, output);
 }
