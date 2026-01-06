@@ -1,0 +1,20 @@
+{
+  "name": "app-lab-build",
+  "version": "1.0.1",
+  "description": "Gives a build functionality to code.org's app lab.",
+  "license": "MIT",
+  "author": "nuclearfusion564",
+  "type": "module",
+  "main": "build.ts",
+  "scripts": {
+    "build": "node build.ts",
+    "import-csv": "node importCSV.ts",
+    "test": "node build.ts && node output.js"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.2"
+  },
+  "dependencies": {
+    "csv-parser": "^3.2.0"
+  }
+}

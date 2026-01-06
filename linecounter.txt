@@ -1,0 +1,243 @@
+// ==== settings.js ====
+var learning_rate = 0.01;
+var bias = 1;
+var epochs = 2000;
+
+var inputsAmount = 50; // In percentage, amount of training data that's used.
+inputsAmount = inputsAmount / 100;
+
+var excludedInputs = ["Class", "Image"];
+
+
+// ==== machine-learning.js ====
+function getAnswers(dataset, answerKey, amount) {
+  var answers = [];
+  var limit = amount;
+
+  if (limit === undefined) {
+    limit = dataset.length;
+  }
+
+  for (var answerIndex = 0; answerIndex < limit; answerIndex++) {
+    var currentElement = dataset[answerIndex];
+
+    try {
+      answers.push(parseFloat(currentElement[answerKey]));
+    } catch (err) {
+      return err;
+    }
+  }
+
+  return answers;
+}
+
+function createInputs(dataset, dataLength) {
+  var inputs = [];
+  var limit = dataLength;
+
+  if (limit === undefined) {
+    limit = dataset.length;
+  }
+
+  if (limit > dataset.length) {
+    limit = dataset.length;
+  }
+
+  for (var dataIndex = 0; dataIndex < limit; dataIndex++) {
+    var element = dataset[dataIndex];
+    var potentialInputs = Object.keys(element);
+    var cleanedElement = {};
+
+    for (var index = 0; index < potentialInputs.length; index++) {
+      var currentInput = potentialInputs[index];
+
+      if (excludedInputs.indexOf(currentInput) > -1) {
+        continue;
+      }
+
+      cleanedElement[currentInput] = element[currentInput];
+    }
+    inputs.push(cleanedElement);
+  }
+
+  return inputs;
+}
+
+function perceptron(inputs, weights, answers) {
+  // model is a perceptron
+  for (var inputIndex = 0; inputIndex < inputs.length; inputIndex++) {
+    var input = inputs[inputIndex];
+    var keys = Object.keys(input);
+    var prediction = 0;
+
+    for (var keyIndex = 0; keyIndex < keys.length; keyIndex++) {
+      var key = keys[keyIndex];
+      var inputValue = parseFloat(input[key]);
+      prediction += weights[keyIndex] * inputValue;
+    }
+
+    prediction += weights[weights.length - 1] * bias;
+
+    if (prediction > 0) {
+      prediction = 1;
+    } else {
+      prediction = 0;
+    }
+
+    var expected = parseFloat(answers[inputIndex]);
+    var error = expected - prediction;
+
+    for (var keyIndexTrain = 0; keyIndexTrain < keys.length; keyIndexTrain++) {
+      var newKey = keys[keyIndexTrain];
+      var inputTrainingValue = parseFloat(input[newKey]);
+      weights[keyIndexTrain] += error * inputTrainingValue * learning_rate;
+    }
+
+    weights[weights.length - 1] += error * bias * learning_rate;
+  }
+
+  return weights;
+}
+
+function predict(element, weights, answer) {
+  var prediction = 0;
+  var inputKeys = Object.keys(element);
+
+  for (var inputIndex = 0; inputIndex < inputKeys.length; inputIndex++) {
+    var key = inputKeys[inputIndex];
+    var inputValue = parseFloat(element[key]);
+    prediction += weights[inputIndex] * inputValue;
+  }
+
+  prediction += weights[weights.length - 1] * bias;
+
+  if (prediction > 0) {
+    prediction = 1;
+  } else {
+    prediction = 0;
+  }
+
+  if (prediction !== parseFloat(answer)) {
+    return 0;
+  }
+
+  return 1;
+}
+
+
+// ==== helpers.js ====
+
+function getRandomInt(min, max, dataset) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+
+function getRandomIndex(dataSet, usedIndexes){
+  var randomIndex = getRandomInt(0, dataSet.length - 1);
+
+  if (usedIndexes.indexOf(randomIndex) === -1){ // -1 just means that it isn't in the usedIndexes list
+    return randomIndex;
+  }
+
+  /*
+  This is a fallback for repeated indexes. At this point,
+  most of the indexes should be randomized and it's probably ok to do it procedurally.
+  */
+
+  for (var chosenNewIndex = 0; chosenNewIndex < dataSet.length; chosenNewIndex++){
+      if (usedIndexes.indexOf(randomIndex)){
+        continue;
+      }
+
+      return chosenNewIndex;
+    }
+}
+
+function randomizeDataSet(dataSet){
+  var usedIndexes = [];
+  var randomizedDataset = [];
+
+  for (var index = 0; index < dataSet.length; index++){
+    var randomIndex = getRandomIndex(dataSet, usedIndexes);
+
+    randomizedDataset[randomIndex] = dataSet[index];
+    usedIndexes.push(randomIndex);
+  }
+  return randomizedDataset;
+}
+
+function main() {
+  var trainingFraction = inputsAmount;
+
+  if (trainingFraction > 1) {
+    trainingFraction = 1;
+  }
+
+  if (trainingFraction < 0) {
+    trainingFraction = 0;
+  }
+
+  var trainingCount = Math.max(1, Math.round(data.length * trainingFraction));
+  var trainingData = randomizeDataSet(data.slice(0, trainingCount));
+  var testData = data.slice(trainingCount);
+
+  console.log(trainingData)
+
+  console.log("Creating inputs");
+  var inputs = createInputs(trainingData);
+  var weights = [];
+  var answers = getAnswers(trainingData, "Class");
+
+  // creating weights (include bias weight)
+  var weightsNumber = Object.keys(inputs[0]).length + 1;
+
+  console.log("Creating weights");
+  for (var weightsIndex = 0; weightsIndex < weightsNumber; weightsIndex++) {
+    weights.push(Math.random());
+  }
+
+  console.log("Training AI");
+
+  for (var epochNumber = 0; epochNumber < epochs; epochNumber++) {
+    console.log("Epoch #" + (epochNumber + 1));
+    weights = perceptron(inputs, weights, answers);
+  }
+
+  if (testData.length === 0) {
+    console.log("Training complete.");
+    return;
+  }
+
+  console.log("Training complete");
+  console.log("Accuracy assessment begin");
+
+  var predictionInputs = createInputs(testData);
+  var predictionAnswers = getAnswers(testData, "Class");
+  var accuracy = [];
+
+  for (var testIndex = 0; testIndex < predictionInputs.length; testIndex++) {
+    var predictionAccuracy = predict(
+      predictionInputs[testIndex],
+      weights,
+      predictionAnswers[testIndex]
+    );
+    accuracy.push(predictionAccuracy);
+  }
+
+  //calculate accuracy
+  console.log("Calculating accuracy...")
+  var accuracySum = 0;
+
+  for (var accuracyIndex = 0; accuracyIndex < accuracy.length; accuracyIndex++) {
+    accuracySum += accuracy[accuracyIndex];
+  }
+
+
+  var finalAccuracy = Math.round((accuracySum / accuracy.length) * 100);
+  console.log("Final accuracy is " + finalAccuracy + "%!!!");
+}
+
+main();
