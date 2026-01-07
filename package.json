@@ -7,8 +7,8 @@
   "type": "module",
   "main": "build.ts",
   "scripts": {
-    "build": "node build.ts",
-    "import-csv": "node importCSV.ts",
+    "build": "node helper-scripts/build.ts",
+    "import-csv": "node helper-scripts/importCSV.ts",
     "test": "node helper-scripts/build.ts && node output.js"
   },
   "devDependencies": {

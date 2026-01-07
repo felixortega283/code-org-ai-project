@@ -18,6 +18,11 @@ lines.forEach((line) => {
     const statements = line.split(" ");
     const fileName = statements[2]; // Assigning variable for statements[2] for readability
 
+    if (!fileName) {
+      console.error("Invalid @include directive: missing file name");
+      process.exit(1);
+    }
+
     const utilFilePath = path.join("src", "utils", fileName);
 
     if (!fs.existsSync(utilFilePath)) {
@@ -34,5 +39,5 @@ lines.forEach((line) => {
   }
 });
 
-fs.writeFileSync("../output.js", output);
+fs.writeFileSync("./output.js", output);
 console.log("Build complete");

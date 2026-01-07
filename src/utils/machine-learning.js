@@ -66,14 +66,17 @@ function perceptron(inputs, weights, answers) {
 
     prediction += weights[weights.length - 1] * bias;
 
-    if (prediction > 0) {
+    var sigmoid = parseFloat(1 / (1 + Math.pow(Math.E, - prediction)));
+    var sigmoidRounded = Math.round(sigmoid);
+
+    if (sigmoidRounded > 0) {
       prediction = 1;
     } else {
       prediction = 0;
     }
 
     var expected = parseFloat(answers[inputIndex]);
-    var error = expected - prediction;
+    var error = expected - sigmoid;
 
     for (var keyIndexTrain = 0; keyIndexTrain < keys.length; keyIndexTrain++) {
       var newKey = keys[keyIndexTrain];
@@ -98,12 +101,10 @@ function predict(element, weights, answer) {
   }
 
   prediction += weights[weights.length - 1] * bias;
+  var sigmoid = parseFloat(1 / (1 + Math.pow(Math.E, -prediction)))
+  var sigmoidRounded = parseFloat(Math.round(sigmoid))
 
-  if (prediction > 0) {
-    prediction = 1;
-  } else {
-    prediction = 0;
-  }
+  prediction = sigmoidRounded;
 
   if (prediction !== parseFloat(answer)) {
     return 0;

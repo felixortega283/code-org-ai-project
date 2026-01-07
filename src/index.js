@@ -4,17 +4,17 @@
 // @include helpers.js
 
 function shuffle(dataSet) {
-  var currentIndex = 0;
-  var randomizedDataset = [];
+  // Fisher yates algorithm, cool 😎 <-- if this doesn't render, it's a sunglasses emoji.
+  for (var i = dataSet.length - 1; i > 0; i--){
+    var randomI = Math.floor(Math.random() * (i + 1))
 
-  while (currentIndex != 0) {
-    var randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    randomizedDataset[randomIndex] = dataSet[currentIndex];
+    /* 
+    Never used destructuring until now, so a yt video helped me lol
+    */
   }
-
-  return randomizedDataset;
+  
+  console.log("Testing shuffle")
+  return dataSet;
 }
 
 function main() {
@@ -28,11 +28,11 @@ function main() {
     trainingFraction = 0;
   }
 
-  var trainingCount = Math.max(1, Math.round(data.length * trainingFraction));
-  var trainingData = shuffle(data.slice(0, trainingCount));
-  var testData = data.slice(trainingCount);
+  var dataRandom = shuffle(data);
 
-  console.log(testData);
+  var trainingCount = Math.max(1, Math.round(data.length * trainingFraction));
+  var trainingData = dataRandom.slice(0, trainingCount - 1);
+  var testData = dataRandom.slice(trainingCount - 1);
 
   console.log("Creating inputs");
   var inputs = createInputs(trainingData);
@@ -45,7 +45,7 @@ function main() {
   console.log("Creating weights");
   for (var weightsIndex = 0; weightsIndex < weightsNumber; weightsIndex++) {
     weights.push(Math.random());
-  }
+  }  
 
   console.log("Training AI");
 
