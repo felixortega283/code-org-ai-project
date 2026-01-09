@@ -1,10 +1,3 @@
-/* 
-
-  This whole data list is auto-generated
-  I made the script that auto-generates this from a csv.
-
-*/
-
 var data = [
    {
      Image: 'Image1',

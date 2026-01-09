@@ -3,19 +3,7 @@
 // @include machine-learning.js
 // @include helpers.js
 
-function shuffle(dataSet) {
-  // Fisher yates algorithm, cool 😎 <-- if this doesn't render, it's a sunglasses emoji.
-  for (var i = dataSet.length - 1; i > 0; i--){
-    var randomI = Math.floor(Math.random() * (i + 1))
 
-    /* 
-    Never used destructuring until now, so a yt video helped me lol
-    */
-  }
-  
-  console.log("Testing shuffle")
-  return dataSet;
-}
 
 function main() {
   var trainingFraction = inputsAmount;
@@ -45,7 +33,7 @@ function main() {
   console.log("Creating weights");
   for (var weightsIndex = 0; weightsIndex < weightsNumber; weightsIndex++) {
     weights.push(Math.random());
-  }  
+  }
 
   console.log("Training AI");
 
