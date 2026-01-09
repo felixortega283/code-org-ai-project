@@ -35,7 +35,7 @@ async function main() {
   importedData.forEach((element) => {
     output += ",\n   {";
 
-    const elementKeys = Object.keys(element);
+    const elementKeys: string[] = Object.keys(element);
 
     for (let i = 0; i < elementKeys.length; i++) {
       if (elementKeys[i].includes(" ")) {

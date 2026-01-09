@@ -17,19 +17,30 @@ var modelInformation = [
     Accuracy: "85.41%",
     Description:
       "The intended use of this model is to help doctors predict if the brain tumor they're examining is malignant or not. ()",
-    Thumbnail: "code.org-logo.png"
+    Thumbnail: "code.org-logo.png",
   },
   {
     Name: "CancerGPT",
     ModelType: "Perceptron sigmoid activation function model",
-    Accuracy: "Accuracy assesment not complete yet",
+    Accuracy: "92%",
     Description:
       "The intended use of this model is to help doctors predict if the brain tumor they're examining is malignant or not." +
-       "As a bonus for this model, I will include more information on the perceptron. The perceptron is the most basic form of machine learning." +
-       "It works by creating weights for each input that the model recieves and an extra one for bias. The model then tries to guess the answer for" +
-       "each question and learns using trial and error.",
-    Thumbnail: "perceptron.png"
+      "As a bonus for this model, I will include more information on the perceptron. The perceptron is the most basic form of machine learning." +
+      "It works by creating weights for each input that the model recieves and an extra one for bias. The model then tries to guess the answer for" +
+      "each question and learns using trial and error.",
+    Thumbnail: "perceptron.png",
   },
 ];
 
 var returnButtonsAmount = 3;
+var gameSettings = {
+  ImageAmount: 10,
+};
+
+var modelWeights = [
+  -1056.73380805559, 27.57378470786862, -625.7808829260271, -709.7240147748106,
+  470.74364811754253, 13.818799081284595, -30.353221911997544,
+  -1353.3458296549281, -579.2157792402232, -1001.1392480055885,
+  1961.6750670363058, -217.1538395647259, 0.921185570878162,
+  -219.36875564568305,
+];

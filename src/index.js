@@ -2,9 +2,8 @@
 // @include settings.js
 // @include machine-learning.js
 // @include helpers.js
+// @include game.js
 // @include uiEvents.js
-
-
 
 function main() {
   var trainingFraction = inputsAmount;
@@ -39,7 +38,7 @@ function main() {
   console.log("Training AI");
 
   for (var epochNumber = 0; epochNumber < epochs; epochNumber++) {
-    console.log("Epoch #" + (epochNumber + 1));
+    // console.log("Epoch #" + (epochNumber + 1));
     weights = perceptron(inputs, weights, answers);
   }
 
@@ -78,6 +77,7 @@ function main() {
 
   var finalAccuracy = Math.round((accuracySum / accuracy.length) * 100);
   console.log("Final accuracy is " + finalAccuracy + "%!!!");
+  console.log(weights);
 }
 
 // main();

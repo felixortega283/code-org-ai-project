@@ -9,7 +9,9 @@
   "scripts": {
     "build": "node helper-scripts/build.ts",
     "import-csv": "node helper-scripts/importCSV.ts",
-    "test": "node helper-scripts/build.ts && node output.js"
+    "test": "node helper-scripts/build.ts && node output.js",
+    "tsbuild": "node dist/build.js",
+    "tstest": "node dist/build.js && node output.js"
   },
   "devDependencies": {
     "@types/node": "^25.0.2",

@@ -1,5 +1,3 @@
-function startGame() {}
-
 function setModelDescription(model) {
   setText(
     "modelDescription",
@@ -74,12 +72,12 @@ onEvent("gameButton", "click", function () {
     function (choice1Text) {
       // Choice 1 Function
       setScreen("gameScreen");
-      startGame(choice1Text);
+      startGame(modelInformation[1]); // CancerGPT
     },
     function (choice2Text) {
       // Choice 2 Function
       setScreen("gameScreen");
-      startGame(choice2Text);
+      startGame(modelInformation[0]); // Cancer Predictor
     }
   );
 });
