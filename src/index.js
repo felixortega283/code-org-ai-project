@@ -2,6 +2,7 @@
 // @include settings.js
 // @include machine-learning.js
 // @include helpers.js
+// @include uiEvents.js
 
 
 
@@ -79,4 +80,4 @@ function main() {
   console.log("Final accuracy is " + finalAccuracy + "%!!!");
 }
 
-main();
+// main();

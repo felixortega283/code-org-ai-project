@@ -23,3 +23,5 @@ var modelInformation = [
     Description: "The intended use of this model is to help doctors predict if the brain tumor they're examining is malignant or not. As a bonus for this model, I will include more information on the perceptron. The perceptron is the most basic form of machine learning. It works by creating weights for each input that the model recieves and an extra one for bias. The model then tries to guess the answer for each question and learns using trial and error."
 }
 ]
+
+var returnButtonsAmount = 3;

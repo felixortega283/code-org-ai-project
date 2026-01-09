@@ -1,35 +1,89 @@
-function choiceScreen(choice1Text, choice2Text, choice1Function, choice2Function){
-    this.choice1Text = choice1Text;
-    this.choice2Text = choice2Text;
+function startGame() {}
 
-    this.listenerActive = true;
-    
-    /* 
+function setModelDescription(modelName) {
+
+}
+
+function choiceScreen(
+  choice1Text,
+  choice2Text,
+  titleText,
+  choice1Function,
+  choice2Function
+) {
+  this.choice1Text = choice1Text;
+  this.choice2Text = choice2Text;
+  this.titleText = titleText;
+
+  this.listenerActive = true;
+
+  /* 
         code.org doesn't seem to support destroying event listeners,
         we're going to have to disable them instead. this isn't ideal
         however i think it's fine for a small app like this.
+        this is also just to avoid memory leaks
     */
 
-    var self = this;
-    this.choice2Event = onEvent("choice1Button", "click", function(){ 
-        if (!self.listenerActive){
-            return;
-        }
+  var self = this;
+  this.choice2Event = onEvent("choice1Button", "click", function () {
+    if (!self.listenerActive) {
+      return;
+    }
 
-        self.listenerActive = false;
-        choice1Function();
-    });
+    self.listenerActive = false;
+    choice1Function(choice1Text);
+  });
 
-    this.choice2Event = onEvent("choice2Button", "click", function(){
-        if (!self.listenerActive){
-            return;
-        }
-        
-        self.listenerActive = false;
-        choice2Function();
-    });
+  this.choice2Event = onEvent("choice2Button", "click", function () {
+    if (!self.listenerActive) {
+      return;
+    }
+
+    self.listenerActive = false;
+    choice2Function(choice2Text);
+  });
+
+  setText("choice1Button", this.choice1Text);
+  setText("choice2Button", this.choice2Text);
+  setProperty("chooseLabel", "text", this.titleText);
+
+  setScreen("chooseScreen");
 }
 
-onEvent("gameButton", "click", function(){ 
-    
+onEvent("gameButton", "click", function () {
+  new choiceScreen(
+    "CancerGPT",  // Choice 1
+    "Cancer Predictor", // Choice 2
+    "Choose your competitor!", // Title
+    function (choice1Text) { // Choice 1 Function
+      setScreen("gameScreen");
+      startGame(choice1Text);
+    },
+    function (choice2Text) { // Choice 2 Function
+      setScreen("gameScreen");
+      startGame(choice2Text);
+    }
+  );
 });
+
+onEvent("modelInfoButton", "click", function(){
+    new choiceScreen(
+        "CancerGPT",
+        "Cancer Predictor",
+        "Choose model",
+        function(choice1Text) {
+            setModelDescription(choice1Text);
+        },
+        function(choice2Text) {
+            setModelDescription(choice2Text);
+        }
+    )
+});
+
+// create return buttons
+
+for (var buttonI = 0; buttonI < returnButtonsAmount - 1; buttonI++){
+    onEvent("returnButton" + buttonI, "click", function(){
+        setScreen("homeScreen");
+    });
+}
