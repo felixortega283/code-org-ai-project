@@ -66,7 +66,7 @@ function perceptron(inputs, weights, answers) {
 
     prediction += weights[weights.length - 1] * bias;
 
-    var sigmoid = parseFloat(1 / (1 + Math.pow(Math.E, - prediction)));
+    var sigmoid = parseFloat(1 / (1 + Math.pow(Math.E, -prediction)));
     var sigmoidRounded = Math.round(sigmoid);
 
     if (sigmoidRounded > 0) {
@@ -101,8 +101,8 @@ function predict(element, weights, answer) {
   }
 
   prediction += weights[weights.length - 1] * bias;
-  var sigmoid = parseFloat(1 / (1 + Math.pow(Math.E, -prediction)))
-  var sigmoidRounded = parseFloat(Math.round(sigmoid))
+  var sigmoid = parseFloat(1 / (1 + Math.pow(Math.E, -prediction)));
+  var sigmoidRounded = parseFloat(Math.round(sigmoid));
 
   prediction = sigmoidRounded;
 

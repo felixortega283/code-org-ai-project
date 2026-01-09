@@ -1,7 +1,23 @@
 function startGame() {}
 
-function setModelDescription(modelName) {
+function setModelDescription(model) {
+  setText(
+    "modelDescription",
+    "Name: " +
+      model.Name +
+      "\n" +
+      "Model Type: " +
+      model.ModelType +
+      "\n" +
+      "Accuracy: " +
+      model.Accuracy +
+      "\n" +
+      "Description: " +
+      model.Description +
+      "\n"
+  );
 
+  setImageURL("modelImage", model.Thumbnail);
 }
 
 function choiceScreen(
@@ -52,38 +68,42 @@ function choiceScreen(
 
 onEvent("gameButton", "click", function () {
   new choiceScreen(
-    "CancerGPT",  // Choice 1
+    "CancerGPT", // Choice 1
     "Cancer Predictor", // Choice 2
     "Choose your competitor!", // Title
-    function (choice1Text) { // Choice 1 Function
+    function (choice1Text) {
+      // Choice 1 Function
       setScreen("gameScreen");
       startGame(choice1Text);
     },
-    function (choice2Text) { // Choice 2 Function
+    function (choice2Text) {
+      // Choice 2 Function
       setScreen("gameScreen");
       startGame(choice2Text);
     }
   );
 });
 
-onEvent("modelInfoButton", "click", function(){
-    new choiceScreen(
-        "CancerGPT",
-        "Cancer Predictor",
-        "Choose model",
-        function(choice1Text) {
-            setModelDescription(choice1Text);
-        },
-        function(choice2Text) {
-            setModelDescription(choice2Text);
-        }
-    )
+onEvent("modelInfoButton", "click", function () {
+  new choiceScreen(
+    "CancerGPT",
+    "Cancer Predictor",
+    "Choose model",
+    function () {
+      setModelDescription(modelInformation[1]); // CancerGPT
+      setScreen("modelInformation");
+    },
+    function () {
+      setModelDescription(modelInformation[0]); // Cancer Predictor
+      setScreen("modelInformation");
+    }
+  );
 });
 
 // create return buttons
 
-for (var buttonI = 0; buttonI < returnButtonsAmount - 1; buttonI++){
-    onEvent("returnButton" + buttonI, "click", function(){
-        setScreen("homeScreen");
-    });
+for (var buttonI = 0; buttonI < returnButtonsAmount; buttonI++) {
+  onEvent("returnButton" + buttonI, "click", function () {
+    setScreen("homeScreen");
+  });
 }
